@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
+import SendPayment from './Dashboard/SendPayment'
+
 const Dashboard = (props) => {
 
   const amounts = [500,100,50,20,10,5]
@@ -25,11 +27,11 @@ const Dashboard = (props) => {
   }, [player])
 
   useEffect(() => {
-    if (game) {
-      axios.get('/api/players?game=' + game.id).then(res => setOthers(res.data))
+    if (player) {
+      axios.get('/api/players?game=' + player.game).then(res => setOthers(res.data))
         .catch(err => console.log('oh shit', err.response.data))
     }
-  }, [game])
+  }, [player])
   
   const sendPayment = e => {
     e.preventDefault()
@@ -60,6 +62,7 @@ const Dashboard = (props) => {
       <h2>{player.amount}</h2>
       <button onClick={getPlayer}>REFRESH</button>
     </div>
+    <SendPayment></SendPayment>
     <form onSubmit={sendPayment}>
       {others.filter(pl => pl.id !== player.id).map(pl => (
         <div key={pl.id} className="player-option">

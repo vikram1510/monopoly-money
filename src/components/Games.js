@@ -22,7 +22,7 @@ class Games extends React.Component{
     const playerId = Auth.getToken()
     axios.patch(`api/players/${playerId}`, { game: gameId })
       .then(() => {
-        this.props.history.push('players/' + playerId)
+        this.props.history.push('/dashboard')
       })
   }
 

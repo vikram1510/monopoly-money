@@ -12,3 +12,11 @@ class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = ['id', 'name', 'players']
+
+class NestedGameSerializer(serializers.ModelSerializer):
+
+    players = PlayerSerializer(many=True)
+    
+    class Meta:
+        model = Game
+        fields = ['id', 'name', 'players']

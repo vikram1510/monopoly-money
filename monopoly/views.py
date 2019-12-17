@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
-from .serializers import PlayerSerializer, GameSerializer
+from .serializers import PlayerSerializer, GameSerializer, NestedGameSerializer
 from django.http import HttpResponse
 
 from .models import Player, Game
@@ -14,7 +14,6 @@ class PlayerList(ListCreateAPIView):
         params = self.request.GET
         if not params:
             return Player.objects.all()
-        
 
         if 'name' in params:
             name = params['name']
@@ -35,7 +34,12 @@ class GameList(ListCreateAPIView):
 
 class GameDetail(RetrieveUpdateDestroyAPIView):
     queryset = Game.objects.all()
-    serializer_class = GameSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return NestedGameSerializer
+        else:
+            return GameSerializer
 
 class Payment(APIView):
     

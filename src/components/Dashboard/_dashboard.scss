@@ -1,0 +1,44 @@
+div.dashboard {
+  div.top{
+    margin: 0 50px;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    padding: 20px;
+    justify-content: space-around;
+    background-color: $green;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+}
+
+.send-payment {
+  margin-top: 20px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 60px);
+  // grid-auto-rows: 90px;
+  justify-content: center;
+  grid-column-gap: 50px;
+  grid-row-gap: 15px;
+}
+
+.dialog-container {
+  margin: 13px 16px;
+  background-color: #fff;
+  border: 1px solid gray;
+  border-radius: 3px;
+}
+
+div.payment-players {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  i {
+    font-size: 28px;
+    color: royalblue;
+  }
+}
