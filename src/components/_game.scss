@@ -1,0 +1,21 @@
+div.game {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  justify-content: space-around;
+  align-items: center;
+
+  h1 {
+    font-size: 28px;
+  }
+}
+
+form.create-game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  input, button {
+    margin-bottom: 20px;
+  }
+}

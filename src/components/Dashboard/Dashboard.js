@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import styled from 'styled-components'
 
-import ContainerDiv from '../styles/Style'
 import { Nav, NavOption } from './Nav'
 
 import Auth from '../../lib/auth'
 import SendPayment from './SendPayment'
 import Leaderboard from './Leaderboard'
-
-
+import PlayerCard from './PlayerCard'
 
 const Dashboard = props => {
 
@@ -18,6 +15,7 @@ const Dashboard = props => {
   const [game, setGame] = useState()
 
   const getPlayer = () => {
+    console.log('hello')
     const playerId = Auth.getToken()
     axios.get('/api/players/' + playerId).then(res => setPlayer(res.data))
       .catch(err => console.log('oh shit', err.response.data))
@@ -43,9 +41,10 @@ const Dashboard = props => {
   if (!game) return null
   return (
     <div className="container">
+      <h1>Game: {game.name}</h1>
       <div className="dashboard">
         <div className="top">
-          <h1>Total</h1>
+          <PlayerCard player={player} />
           <h2>{player.amount}</h2>
         </div>
         <Nav>

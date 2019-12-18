@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 
 import Auth from '../lib/auth'
+import Button from './common/Button'
+import Input from './common/Input'
 
 class Home extends React.Component {
   constructor(){
@@ -24,7 +26,7 @@ class Home extends React.Component {
     axios.post('/api/players', { name })
       .then(res => {
         Auth.setToken(res.data.id)
-        this.props.history.push('/games')
+        this.props.history.push('/home')
       })
       .catch(err => {
         console.log(err.response.data)
@@ -32,7 +34,7 @@ class Home extends React.Component {
         if (error === 'player with this name already exists.') {
           axios.get(`/api/players?name=${name}`).then(res => {
             Auth.setToken(res.data[0].id)
-            this.props.history.push('/games')
+            this.props.history.push('/home')
           }).catch(err => console.log('you really fucked up', err.response.data))
         } else this.setState({ error })
       })
@@ -40,19 +42,19 @@ class Home extends React.Component {
 
   render(){
     return (
-      <div className="home-page">
-        <form onSubmit={(e) => this.handleSubmit(e)}>
+      <div className="container">
+        <form className="login" onSubmit={(e) => this.handleSubmit(e)}>
           <div className="text-input">
-            <label>Name</label>
-            <input 
+            <Input 
               name="name" 
               onChange={(e) => this.setState({ name: e.target.value, error: '' })}
               value={this.state.name}
+              placeholder="Name"
             >
-            </input>
+            </Input>
           </div>
-          {this.state.error && <p style={{ color: 'red' }}>{this.state.error}</p>}
-          <button>Enter</button>
+          <Button>Enter</Button>
+        {this.state.error && <p style={{ color: 'red' }}>{this.state.error}</p>}
         </form>
       </div>
     )

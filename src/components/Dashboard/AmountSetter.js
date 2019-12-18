@@ -1,24 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import Input from '../common/Input'
+
 const AmountSetterStyle = styled.div`
   display: flex;
-  padding: 20px;
+  flex-direction: column;
+  padding: 0 20px;
+  /* padding-top: 0px; */
   align-items: center;
   justify-content: space-between;
-  input {
-    width: 50px;
-    height: 40px;
-    text-align: center;
-    background-color: transparent;
-    border: 0;
-    outline: none;
-    border-bottom: 2px solid gray;
-    font-size: 20px;
-  }
+
   .amount-buttons {
     display: grid;
-    grid-template-columns: repeat(3, 54px);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
     text-align: center;
     
@@ -31,7 +26,7 @@ const AmountSetterStyle = styled.div`
       user-select: none;
     }
 
-    label:hover{
+    label:active{
       border: 2px solid black;
     }
 
@@ -80,10 +75,10 @@ const AmountSetter = ({ amount, setAmount }) => {
 
   return (
     <AmountSetterStyle>
-      <input
+      <Input
         value={amount}
-        onChange={e => changeAmount(0, e)}
-      ></input>
+        onChange={e => changeAmount(null, e)}
+      ></Input>
       <div className="amount-buttons">
         {amounts.map((amount,id) => (
           <label key={id} className={'amount amount-'+amount} onClick={() => changeAmount(amount)}>+{amount}</label>

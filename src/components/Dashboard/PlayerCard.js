@@ -5,20 +5,20 @@ const PlayerCardStyle = styled.div`
   width: 60px;
   text-align: center;
   h4 {
-    margin-bottom: 10px;
+    margin-top: 10px;
   }
   .player-photo {
-    background-color: royalblue;
+    background-color: ${({cardColor}) => cardColor};
     height: 60px;
   }
 `
 
-const PlayerCard = ({ name, onClick = null }) => {
+const PlayerCard = ({ player, onClick = null }) => {
 
   return (
-    <PlayerCardStyle onClick={onClick}>
-      <h4>{name}</h4>
+    <PlayerCardStyle onClick={onClick} cardColor={player.is_bank ? 'gold' : 'royalblue'}>
       <div className="player-photo"></div>
+      <h4>{player.name.split('-')[0]}</h4>
     </PlayerCardStyle>
   )
 

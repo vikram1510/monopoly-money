@@ -12,10 +12,14 @@ const DialogWrapper = styled.div`
   align-items: center;
   top: 0;
 
-  .dialog-component {
+  .dialog-container {
     padding: 0.5rem;
     padding-bottom: 1rem;
     width: 80%;
+    margin: 13px 16px;
+    background-color: #fff;
+    border: 1px solid gray;
+    border-radius: 3px;
   }
 
   .close {
@@ -38,7 +42,7 @@ const Dialog = ( { open = false , children, closeFunction } ) => {
       <DialogWrapper id="wrapper" onClick={(e) => {
         if (e.target.id === 'wrapper' || e.target.id === 'close' ) closeFunction(e)
       }} className="dialog-wrapper">
-        <div className="dialog-component dialog-container">
+        <div className="dialog-container">
           <div className="close">
             <i id="close" className="fas fa-times-circle"></i>
           </div>

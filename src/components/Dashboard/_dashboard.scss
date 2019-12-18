@@ -4,13 +4,19 @@ div.dashboard {
     margin-top: 50px;
     display: flex;
     align-items: center;
-    font-size: 30px;
+    font-size: 20px;
     padding: 20px;
     justify-content: space-around;
-    background-color: $green;
-    color: white;
+    // background-color: $green;
+    color: black;
     border-radius: 10px;
     margin-bottom: 30px;
+
+    h2 {
+      color: rgb(0, 104, 9);
+      font-weight: bold;
+      font-size: 24px;
+    }
   }
 }
 
@@ -25,20 +31,19 @@ div.dashboard {
   grid-row-gap: 15px;
 }
 
-.dialog-container {
-  margin: 13px 16px;
-  background-color: #fff;
-  border: 1px solid gray;
-  border-radius: 3px;
-}
-
 div.payment-players {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 20px;
+  // margin-bottom: 10px;
   i {
     font-size: 28px;
     color: royalblue;
   }
+}
+
+.payment-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
 }
