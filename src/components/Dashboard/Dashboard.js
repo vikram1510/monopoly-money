@@ -7,6 +7,7 @@ import Auth from '../../lib/auth'
 import SendPayment from './SendPayment'
 import Leaderboard from './Leaderboard'
 import PlayerCard from './PlayerCard'
+import Button from '../common/Button'
 
 const Dashboard = props => {
 
@@ -46,6 +47,7 @@ const Dashboard = props => {
         <div className="top">
           <PlayerCard player={player} />
           <h2>{player.amount}</h2>
+          <Button onClick={getPlayer} bg="gray"><i className="fas fa-sync-alt"></i></Button>
         </div>
         <Nav>
           <NavOption  selectedNavValue={navOption} navValue={'payment'} onChange={navSelect} navText="Money"/>

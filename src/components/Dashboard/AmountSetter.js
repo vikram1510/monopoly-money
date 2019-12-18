@@ -78,6 +78,7 @@ const AmountSetter = ({ amount, setAmount }) => {
       <Input
         value={amount}
         type="number"
+        inputMode="numeric"
         onChange={e => changeAmount(null, e)}
       ></Input>
       <div className="amount-buttons">
