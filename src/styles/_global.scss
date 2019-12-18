@@ -8,9 +8,8 @@ html, body {height: 100%;}
   background-color: black;
   display: flex;
   justify-content: center;
-  // height: stretch;
   height: 100%;
-  overflow: hidden;
+  overscroll-behavior-y: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   z-index: -100;
 }
