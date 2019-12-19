@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, NotAcceptable, NotFound
 from .serializers import PlayerSerializer, GameSerializer, NestedGameSerializer
 from django.http import HttpResponse, JsonResponse
 
@@ -77,10 +77,58 @@ class Deposit(APIView):
             return Response({'error': 'invalid action'}, status=400)
             
 
-                
-            
+class AddFreeParking(APIView):
+    def post(self, request, pk):
+        try: 
+            player_id = int(request.data.get('player'))
+            amount = int(request.data.get('amount'))
+        except:
+            raise NotAcceptable({ 'error': 'Invalid payload please send player and amount'})
+        
+        try:
+            game = Game.objects.get(pk=pk)
+        except:
+            raise NotFound({ 'game': 'Game not found'})
+
+        try:
+            player = Player.objects.get(pk=player_id)
+        except:
+            raise NotFound({ 'player': 'Player not found'})
+
+        if not game.players.filter(pk=player_id).exists():
+            raise NotFound({ 'game': 'Player is not in this game'})
+
+        game.free_parking += amount
+        player.amount -= amount
+
+        game.save()
+        player.save()
+        return Response({'message': 'successful'})
 
 
+class SplitFreeParking(APIView):
+    def post(self, request, pk):
+        player_id = int(request.data.get('player'))
+        try:
+            game = Game.objects.get(pk=pk)
+        except:
+            raise NotFound({ 'game': 'Game not found'})
+
+        try:
+            player = Player.objects.get(pk=player_id)
+        except:
+            raise NotFound({ 'player': 'Player not found'})
+
+        others = game.players.exclude(pk=player_id).exclude(is_bank=True)
+        player.amount += int(game.free_parking/2)
+        for other in others:
+            other.amount += int(game.free_parking/(2*len(others)))
+            other.save()
+        game.free_parking = 0
+        player.save()
+        game.save()
+
+        return Response(PlayerSerializer(others, many=True).data)
 
 
 class Payment(APIView):

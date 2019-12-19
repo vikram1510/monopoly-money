@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 import Input from '../common/Input'
@@ -59,12 +59,12 @@ const AmountSetterStyle = styled.div`
     }
   }
 `
-const AmountSetter = ({ amount, setAmount, max }) => {
+const AmountSetter = ({ amount, setAmount, max = null }) => {
 
   const amounts = [500,100,50,20,10,5]
 
   const checkMax = newAmount => {
-    if (max && newAmount > max) return max
+    if (max !== null && newAmount >= max) return max
     return newAmount
   }
 
@@ -79,6 +79,8 @@ const AmountSetter = ({ amount, setAmount, max }) => {
       setAmount(newAmount)
     } else setAmount(0)
   }
+  
+  setAmount(checkMax(amount))
 
   return (
     <AmountSetterStyle>

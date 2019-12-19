@@ -11,7 +11,7 @@ class GameSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Game
-        fields = ['id', 'name', 'players']
+        fields = ['id', 'name', 'players', 'free_parking']
 
 class NestedGameSerializer(serializers.ModelSerializer):
 
@@ -19,4 +19,4 @@ class NestedGameSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Game
-        fields = ['id', 'name', 'players']
+        fields = ['id', 'name', 'free_parking', 'players']

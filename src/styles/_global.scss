@@ -9,7 +9,7 @@ html, body {height: 100%;}
   display: flex;
   justify-content: center;
   height: 100%;
-  overscroll-behavior-y: none;
+  touch-action: manipulation;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   z-index: -100;
 }
@@ -18,5 +18,6 @@ div.container {
   position: relative;
   background-color: white;
   height: 100%;
-  width: 420px;
+  min-width: 375px;
+  max-width: 420px;
 }

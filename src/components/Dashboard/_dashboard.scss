@@ -1,6 +1,6 @@
 div.dashboard {
   div.info{
-    margin: 50px 50px;
+    margin: 20px 50px;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
@@ -41,15 +41,36 @@ div.dashboard {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space:nowrap;
+    text-align: center;
     &::-webkit-scrollbar {
       display: none;
     }
     
     button {
       margin-right: 16px;
+      width: 90px;
+      white-space: normal;
       display: inline-block;
     }
+
+    button.collect-fp{
+      width: 120px;
+    }
   }
+
+  div.deposit-fp{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    label {
+      display: block;
+      padding-bottom: 5px;
+      font-weight: bold;
+    }
+  }
+
 }
 
 .send-payment {
@@ -113,5 +134,32 @@ form.collect-deposit{
     input:checked + label {
       background-color: rgb(255, 233, 107);
     }
+  }
+}
+
+form.yes-cancel{
+  text-align: center;
+
+  p:first-of-type{
+    margin-bottom: 5px;
+  }
+
+  div.message {
+    margin-bottom: 20px;
+  }
+  div.buttons {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  button {
+    width: 80px;
+  }
+
+  button.yes {
+    background-color: green;
+  }
+  button.cancel {
+    background-color: red;
   }
 }

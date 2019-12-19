@@ -24,8 +24,16 @@ const Dashboard = props => {
   const [collDeposit, setCollDeposit] = useState(0)
   const [atBank, setAtBank] = useState(true)
 
+  const [addFpDialog, setAddFpDialog] = useState(false)
+  const [fpAmount, setFpAmount] = useState(0)
+
+  const [collFpDialog, setCollFpDialog] = useState(false)
+  
+  const [collSalDialog, setCollSalDialog] = useState(false)
+  
+  const [resetDialog, setResetDialog] = useState(false)
+
   const getPlayer = () => {
-    console.log('hello')
     const playerId = Auth.getToken()
     axios.get('/api/players/' + playerId).then(res => setPlayer(res.data))
       .catch(err => console.log('oh shit', err.response.data))
@@ -48,8 +56,12 @@ const Dashboard = props => {
 
   const navSelect = e => setNavOption(e.target.value)
 
-  const resetAmount = () => {
-    axios.patch('/api/players/'+player.id, { amount: 1500 }).then(getPlayer)
+  const resetAmount = e => {
+    e.preventDefault()
+    axios.patch('/api/players/'+player.id, { amount: 1500, deposit: 0 })
+      .then(() => axios.patch('/api/games/'+player.game, { free_parking: 0 }))
+      .then(getPlayer)
+      .then(() => setResetDialog(false))
       .catch(err => console.log('reset failed', err.response.data))
   }
 
@@ -60,8 +72,33 @@ const Dashboard = props => {
     if (atBank !== null) payload.at_bank = atBank
     axios.post('/api/players/'+player.id+'/deposit', payload).then(getPlayer)
       .then(() => setAddDepDialog(false))
+      .then(() => setCollDepDialog(false))
       .then(() => setDeposit(0))
+      .then(() => setCollDeposit(0))
       .catch(err => console.log('deposit failed', err.response.data))
+  }
+
+  const addFreeParking = (e, amount) => {
+    e.preventDefault()
+    axios.post('/api/games/'+player.game+'/freeparkingadd', {amount, player: player.id}).then(getPlayer)
+    .then(() => setAddFpDialog(false))
+    .then(() => setFpAmount(0))
+    .catch(err => console.log('Free Parking Add failed', err.response.data))
+  }
+
+  const splitFreeParking = e => {
+    e.preventDefault()
+    axios.post('/api/games/'+player.game+'/freeparkingsplit', {player: player.id}).then(getPlayer)
+    .then(() => setCollFpDialog(false))
+    .catch(err => console.log('Free Parking Add failed', err.response.data))
+  }
+
+  const collectSalary = e => {
+    e.preventDefault()
+    const bankId = game.players.find(pl => pl.name.startsWith('Bank')).id
+    const amount = 200 + parseInt(player.deposit*0.25)
+    sendPayment(player.id, bankId, amount)
+    setCollSalDialog(false)
   }
 
   if (!game) return null
@@ -70,25 +107,29 @@ const Dashboard = props => {
       <div className="dashboard">
         <div className="top">
         <h1>Game: {game.name}</h1>
-        <Button onClick={resetAmount}>RESET</Button>
-        </div>
-        <div className="deposit">
-        <h1>Deposit: {player.deposit}</h1>
+        <Button onClick={() => setResetDialog(true)}>RESET</Button>
         </div>
         <div className="info">
           <PlayerCard player={player} />
           <h2>{player.amount}</h2>
           <Button onClick={getPlayer}><i className="fas fa-sync-alt"></i></Button>
         </div>
+        <div className="deposit-fp">
+          <div>
+            <label>Deposit</label>
+            <p>{player.deposit}</p>
+          </div>
+          <div>
+            <label>Free Parking</label>
+            <p>{game.free_parking}</p>
+          </div>
+        </div>
         <div className="action-buttons">
         <Button onClick={() => setAddDepDialog(true)} className="add-deposit">Add Deposit</Button>
         <Button onClick={() => setCollDepDialog(true)} className="collect-deposit">Collect Deposit</Button>
-        <Button className="deposit">Deposit</Button>
-        <Button className="deposit">Deposit</Button>
-        <Button className="deposit">Deposit</Button>
-        <Button className="deposit">Deposit</Button>
-        <Button className="deposit">Deposit</Button>
-        <Button className="deposit">Deposit</Button>
+        <Button onClick={() => setAddFpDialog(true)}  className="add-fp">Add Free Parking</Button>
+        <Button onClick={() => setCollFpDialog(true)}  className="collect-fp">Collect Free Parking</Button>
+        <Button onClick={() => setCollSalDialog(true)}  className="collect-salary">Collect Salary</Button>
       </div>
         <Nav>
           <NavOption  selectedNavValue={navOption} navValue={'payment'} onChange={navSelect} navText="Money"/>
@@ -120,6 +161,48 @@ const Dashboard = props => {
         </div>
         </form>
       </Dialog>
+      <Dialog open={addFpDialog} closeFunction={() => setAddFpDialog(false)}>
+        <form onSubmit={e => addFreeParking(e, fpAmount)} className="add-deposit">
+        <AmountSetter amount={fpAmount} setAmount={setFpAmount}></AmountSetter>
+        <Button>Add Free Parking</Button>
+        </form>
+      </Dialog>
+      <Dialog open={collFpDialog} closeFunction={() => setCollFpDialog(false)}>
+        <form onSubmit={splitFreeParking} className="yes-cancel">
+          <div className="message">
+            <p>Are you sure?</p>
+            <p>You will receive {parseInt(game.free_parking/2)}</p>
+          </div>
+          <div className="buttons">
+            <Button className="yes">Yes</Button>
+            <Button className="cancel" onClick={() => setCollFpDialog(false)}>Cancel</Button>
+          </div>
+        </form>
+      </Dialog>
+      <Dialog open={collSalDialog} closeFunction={() => setCollSalDialog(false)}>
+        <form onSubmit={collectSalary} className="yes-cancel">
+          <div className="message">
+            <p>You will receive {parseInt(200 + player.deposit*0.25)}</p>
+          </div>
+          <div className="buttons">
+            <Button className="yes">Yes</Button>
+            <Button className="cancel" onClick={() => setCollSalDialog(false)}>Cancel</Button>
+          </div>
+        </form>
+      </Dialog>
+      <Dialog open={resetDialog} closeFunction={() => setResetDialog(false)}>
+        <form onSubmit={resetAmount} className="yes-cancel">
+          <div className="message">
+            <p>The game will be reset</p>
+            <p>Are you sure?</p>
+          </div>
+          <div className="buttons">
+            <Button className="yes">Yes</Button>
+            <Button className="cancel" onClick={() => setResetDialog(false)}>Cancel</Button>
+          </div>
+        </form>
+      </Dialog>
+
     </div>
   )
 
