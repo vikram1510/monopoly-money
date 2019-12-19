@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-import Dialog from './Dialog'
+import Dialog from '../common/Dialog'
 import PlayerCard from './PlayerCard'
 import AmountSetter from './AmountSetter'
 import Button from '../common/Button'

@@ -54,6 +54,35 @@ class GameDetail(RetrieveUpdateDestroyAPIView):
         else:
             return GameSerializer
 
+class Deposit(APIView):
+    def post(self, request, pk):
+        player = Player.objects.get(pk=pk)
+        if request.data.get('action') == 'add':
+            player.deposit += int(request.data.get('amount'))
+            player.amount -= int(request.data.get('amount'))
+            player.save()
+            return Response({'message': 'successful'})
+        
+        elif request.data.get('action') == 'collect':
+            at_bank = request.data.get('at_bank')
+            collect_amount = int(request.data.get('amount'))
+            player.deposit -= collect_amount
+            player.amount += collect_amount
+            if not at_bank:
+                player.amount -= round(collect_amount*0.25)
+            player.save()
+            return Response({'message': 'successful'})
+
+        else:
+            return Response({'error': 'invalid action'}, status=400)
+            
+
+                
+            
+
+
+
+
 class Payment(APIView):
     
     def post(self, request, pk):

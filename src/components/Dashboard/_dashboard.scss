@@ -1,13 +1,11 @@
 div.dashboard {
-  div.top{
-    margin: 0 50px;
-    margin-top: 50px;
+  div.info{
+    margin: 50px 50px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     font-size: 20px;
-    padding: 20px;
     justify-content: space-between;
-    // background-color: $green;
     color: black;
     border-radius: 10px;
     margin-bottom: 30px;
@@ -16,6 +14,40 @@ div.dashboard {
       color: rgb(0, 104, 9);
       font-weight: bold;
       font-size: 24px;
+    }
+
+    button {
+      background-color: rgb(122, 14, 0);
+      border-radius: 100%;
+      font-size: 20px;
+    }
+  }
+
+  .top {
+    padding: 10px 10px 0px 10px;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      font-size: 10px;
+      background-color: gray;
+    }
+  }
+
+  .action-buttons {
+    margin-bottom: 20px;
+    padding: 0 20px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space:nowrap;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    
+    button {
+      margin-right: 16px;
+      display: inline-block;
     }
   }
 }
@@ -46,4 +78,40 @@ div.payment-players {
   display: flex;
   justify-content: space-evenly;
   margin-top: 20px;
+}
+
+
+form.add-deposit {
+  text-align: center;
+  button {
+    margin-top: 20px;
+  }
+}
+
+form.collect-deposit{
+  .submit {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  button {
+    background-color: green;
+  }
+  .at-go {
+    position: relative;
+    input {
+      position: absolute;
+      left: 10px;
+    }
+    label {
+      border: gray 2px solid;
+      padding: 10px 10px 10px 30px;
+      border-radius: 5px;
+      margin-left: 5px;
+    }
+    input:checked + label {
+      background-color: rgb(255, 233, 107);
+    }
+  }
 }
