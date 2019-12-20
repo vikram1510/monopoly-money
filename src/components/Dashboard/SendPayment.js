@@ -54,7 +54,13 @@ const SendPayment = ({ others, fromPlayer, sendPaymentFunc }) => {
       </Dialog>
       }
       <div className="send-payment">
-        {others.map(player => (
+        {others
+        .sort((a, b) => {
+          if(a.name.startsWith('Bank')) {
+            return 1
+          }
+          return a.name < b.name ? 1 : -1
+        }).map(player => (
           <PlayerCard 
             key={player.id} 
             player={player} 

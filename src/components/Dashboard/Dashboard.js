@@ -10,6 +10,7 @@ import PlayerCard from './PlayerCard'
 import Button from '../common/Button'
 import Dialog from '../common/Dialog'
 import AmountSetter from '../Dashboard/AmountSetter'
+import CountUp from 'react-countup'
 
 const Dashboard = props => {
 
@@ -111,25 +112,28 @@ const Dashboard = props => {
         </div>
         <div className="info">
           <PlayerCard player={player} />
-          <h2>{player.amount}</h2>
+          {/* <h2>{player.amount}</h2> */}
+          <CountUp startOnMount={false} end={player.amount} prefix={'$'} duration={2} preserveValue={true}/>
           <Button onClick={getPlayer}><i className="fas fa-sync-alt"></i></Button>
         </div>
         <div className="deposit-fp">
           <div>
             <label>Deposit</label>
-            <p>{player.deposit}</p>
+            <CountUp startOnMount={false} end={player.deposit} prefix={'$'} duration={2} preserveValue={true}/>
+            {/* <p>{player.deposit}</p> */}
           </div>
           <div>
             <label>Free Parking</label>
-            <p>{game.free_parking}</p>
+            <CountUp startOnMount={false} end={game.free_parking} prefix={'$'} duration={2} preserveValue={true}/>
+            {/* <p>{game.free_parking}</p> */}
           </div>
         </div>
         <div className="action-buttons">
+        <Button onClick={() => setCollSalDialog(true)}  className="collect-salary">Collect Salary</Button>
         <Button onClick={() => setAddDepDialog(true)} className="add-deposit">Add Deposit</Button>
-        <Button onClick={() => setCollDepDialog(true)} className="collect-deposit">Collect Deposit</Button>
+        <Button onClick={() => setCollDepDialog(true)} className="collect-deposit">Withdraw Deposit</Button>
         <Button onClick={() => setAddFpDialog(true)}  className="add-fp">Add Free Parking</Button>
         <Button onClick={() => setCollFpDialog(true)}  className="collect-fp">Collect Free Parking</Button>
-        <Button onClick={() => setCollSalDialog(true)}  className="collect-salary">Collect Salary</Button>
       </div>
         <Nav>
           <NavOption  selectedNavValue={navOption} navValue={'payment'} onChange={navSelect} navText="Money"/>

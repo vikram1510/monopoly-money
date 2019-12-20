@@ -5,7 +5,7 @@ import './styles/style.scss'
 import Login from './components/Login'
 import Home from './components/Home'
 import CreateGame from './components/CreateGame'
-import joinGame from './components/joinGame'
+import JoinGame from './components/JoinGame'
 import Dashboard from './components/Dashboard/Dashboard'
 
 const App = () => (
@@ -15,7 +15,7 @@ const App = () => (
       <Route path='/home' component={Home}/>
       <Route path='/dashboard' component={Dashboard}/>
       <Route path='/create-game' component={CreateGame}/>
-      <Route path='/join-game' component={joinGame}/>
+      <Route path='/join-game' component={JoinGame}/>
     </Switch>
   </BrowserRouter>
 )
