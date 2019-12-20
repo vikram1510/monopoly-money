@@ -5,7 +5,7 @@ import './styles/style.scss'
 import Login from './components/Login'
 import Home from './components/Home'
 import CreateGame from './components/CreateGame'
-import JoinGame from './components/JoinGame'
+import JoinGame from './components/JoinGame2'
 import Dashboard from './components/Dashboard/Dashboard'
 
 const App = () => (
