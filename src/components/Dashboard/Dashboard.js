@@ -111,7 +111,7 @@ const Dashboard = props => {
         <Button onClick={() => setResetDialog(true)}>RESET</Button>
         </div>
         <div className="info">
-          <PlayerCard player={player} />
+          <PlayerCard player={player} showAmount={false}/>
           {/* <h2>{player.amount}</h2> */}
           <CountUp startOnMount={false} end={player.amount} prefix={'$'} duration={2} preserveValue={true}/>
           <Button onClick={getPlayer}><i className="fas fa-sync-alt"></i></Button>

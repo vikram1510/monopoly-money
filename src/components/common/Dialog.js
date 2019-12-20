@@ -19,7 +19,7 @@ const DialogWrapper = styled.div`
     margin: 13px 16px;
     background-color: #fff;
     border: 1px solid gray;
-    border-radius: 3px;
+    border-radius: 5px;
   }
 
   .close {
