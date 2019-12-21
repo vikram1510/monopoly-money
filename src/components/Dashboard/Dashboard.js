@@ -125,7 +125,7 @@ const Dashboard = props => {
         <Button onClick={() => setResetDialog(true)}>RESET</Button>
         </div>
         <div className="info">
-          <PlayerCard player={player} showAmount={false}/>
+          <PlayerCard player={player} showAmount={false} onClick={() => setProfileDialog(true)} />
           {/* <h2>{player.amount}</h2> */}
           <CountUp startOnMount={false} end={player.amount} prefix={'$'} duration={2} preserveValue={true}/>
           <Button onClick={getPlayer}><i className="fas fa-sync-alt"></i></Button>
@@ -148,7 +148,6 @@ const Dashboard = props => {
         <Button onClick={() => setCollDepDialog(true)} className="collect-deposit">Withdraw Deposit</Button>
         <Button onClick={() => setAddFpDialog(true)}  className="add-fp">Add Free Parking</Button>
         <Button onClick={() => setCollFpDialog(true)}  className="collect-fp">Collect Free Parking</Button>
-        <Button onClick={() => setProfileDialog(true)}  className="set-profile">Set Photo</Button>
       </div>
         <Nav>
           <NavOption  selectedNavValue={navOption} navValue={'payment'} onChange={navSelect} navText="Money"/>
