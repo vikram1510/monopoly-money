@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## TODO
+
+Real time updates
+Better styling
+History
+Sort out Dashboard.js
+
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -11,6 +11,7 @@ import Button from '../common/Button'
 import Dialog from '../common/Dialog'
 import AmountSetter from '../Dashboard/AmountSetter'
 import CountUp from 'react-countup'
+import Input from '../common/Input'
 
 const Dashboard = props => {
 
@@ -20,6 +21,8 @@ const Dashboard = props => {
 
   const [addDepDialog, setAddDepDialog] = useState(false)
   const [deposit, setDeposit] = useState(0)
+
+  const [profile, setProfile] = useState({photo: '', color: ''})
 
   const [collDepDialog, setCollDepDialog] = useState(false)
   const [collDeposit, setCollDeposit] = useState(0)
@@ -34,6 +37,8 @@ const Dashboard = props => {
   
   const [resetDialog, setResetDialog] = useState(false)
 
+  const [profileDialog, setProfileDialog] = useState(false)
+
   const getPlayer = () => {
     const playerId = Auth.getToken()
     axios.get('/api/players/' + playerId).then(res => setPlayer(res.data))
@@ -45,6 +50,7 @@ const Dashboard = props => {
   useEffect(() => {
     if (player){
       axios.get('/api/games/' + player.game).then(res => setGame(res.data))
+        .then(() => setProfile({photo: player.photo, color: player.color}))
         .catch(err => console.log('oh shit', err.response.data))
     }
   }, [player])
@@ -102,6 +108,14 @@ const Dashboard = props => {
     setCollSalDialog(false)
   }
 
+  const saveProfile = e => {
+    e.preventDefault()
+    axios.patch('/api/players/'+player.id, {photo: profile.photo})
+    .then(getPlayer)
+    .then(() => setProfileDialog(false))
+    .catch(err => console.log(err.response.data))
+  }
+
   if (!game) return null
   return (
     <div className="container">
@@ -134,6 +148,7 @@ const Dashboard = props => {
         <Button onClick={() => setCollDepDialog(true)} className="collect-deposit">Withdraw Deposit</Button>
         <Button onClick={() => setAddFpDialog(true)}  className="add-fp">Add Free Parking</Button>
         <Button onClick={() => setCollFpDialog(true)}  className="collect-fp">Collect Free Parking</Button>
+        <Button onClick={() => setProfileDialog(true)}  className="set-profile">Set Photo</Button>
       </div>
         <Nav>
           <NavOption  selectedNavValue={navOption} navValue={'payment'} onChange={navSelect} navText="Money"/>
@@ -205,6 +220,13 @@ const Dashboard = props => {
             <Button className="cancel" onClick={() => setResetDialog(false)}>Cancel</Button>
           </div>
         </form>
+      </Dialog>
+      <Dialog open={profileDialog} closeFunction={() => setProfileDialog(false)}>
+        <form onSubmit={saveProfile} className="set-profile">
+        <Input className="photo" placeholder="photo" value={profile.photo} onChange={(e) => setProfile({...profile, photo: e.target.value})}></Input>
+        {/* <Input className="color" placeholder="color" value={profile.color} onChange={(e) => setProfile({...profile, color: e.target.value})}></Input> */}
+        <Button>Submit</Button>
+       </form>
       </Dialog>
 
     </div>

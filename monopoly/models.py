@@ -14,6 +14,8 @@ class Player(models.Model):
     game = models.ForeignKey(Game, related_name="players", on_delete=models.DO_NOTHING, null=True)
     is_bank = models.BooleanField(default=False)
     deposit = models.IntegerField(default=0)
+    photo = models.CharField(max_length=9000, null=True, blank=True)
+    color = models.CharField(max_length=100, default='royalblue')
 
     def __str__(self):
         return self.name

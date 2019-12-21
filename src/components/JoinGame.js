@@ -11,7 +11,7 @@ const JoinGame = props => {
 
   const joinGame = e => {
     e.preventDefault()
-    axios.get('/api/games?name='+name)
+    axios.get('/api/games?name='+name.toLowerCase())
       .then(res => {
         const game = res.data[0]
         return axios.patch('/api/players/'+Auth.getToken(), {game: game.id})
