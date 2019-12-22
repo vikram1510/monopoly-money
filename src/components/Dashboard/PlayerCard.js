@@ -29,7 +29,7 @@ const PlayerCard = ({ player, onClick = null, showAmount = true, animateCount = 
       <div className="player-photo">
         {player.photo && <img src={player.photo} alt={player.name + ' photo'}></img>}
       </div>
-      <h4>{player.name.split('-')[0]}</h4>
+      <h4>{player.name.split('-')[0].replace(/^\w/, c => c.toUpperCase())}</h4>
       {showAmount && !player.is_bank && <CountUp start={!animateCount && player.amount} end={player.amount} prefix={'$'} duration={2} preserveValue={true}/>}
     </PlayerCardStyle>
   )
