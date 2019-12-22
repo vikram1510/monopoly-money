@@ -37,9 +37,9 @@ const SendPayment = ({ others, fromPlayer, sendPaymentFunc }) => {
       {toPlayer &&
       <Dialog open={dialog} closeFunction={closeDialog}>
         <div className="payment-players">
-          <PlayerCard player={fromPlayer}/>
+          <PlayerCard player={fromPlayer} animateCount={false}/>
           <i className="fas fa-chevron-right"></i>
-          <PlayerCard player={toPlayer}/>
+          <PlayerCard player={toPlayer} animateCount={false}/>
         </div>
         <form onSubmit={handleSubmit}>
           <AmountSetter amount={amount} setAmount={setAmount}></AmountSetter>

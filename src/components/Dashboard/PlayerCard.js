@@ -22,7 +22,7 @@ const PlayerCardStyle = styled.div`
   }
 `
 
-const PlayerCard = ({ player, onClick = null, showAmount = true }) => {
+const PlayerCard = ({ player, onClick = null, showAmount = true, animateCount = true }) => {
 
   return (
     <PlayerCardStyle onClick={onClick} cardColor={player.is_bank ? 'gold' : player.photo ? 'transparent' : 'royalblue'}>
@@ -30,7 +30,7 @@ const PlayerCard = ({ player, onClick = null, showAmount = true }) => {
         {player.photo && <img src={player.photo} alt={player.name + ' photo'}></img>}
       </div>
       <h4>{player.name.split('-')[0]}</h4>
-      {showAmount && !player.is_bank && <CountUp startOnMount={false} end={player.amount} prefix={'$'} duration={2} preserveValue={true}/>}
+      {showAmount && !player.is_bank && <CountUp start={!animateCount && player.amount} end={player.amount} prefix={'$'} duration={2} preserveValue={true}/>}
     </PlayerCardStyle>
   )
 
