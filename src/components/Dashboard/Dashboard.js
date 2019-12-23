@@ -42,10 +42,13 @@ const Dashboard = props => {
     api.getPlayer(playerId).then(player => setPlayer(player));
   };
 
-  useEffect(getPlayer, []);
+  useEffect(() => {
+    setInterval(getPlayer, 3000)
+  }, []);
+
 
   useEffect(() => {
-    console.log(player);
+    // console.log(player);
     if (player) {
       api.getGame(player.game).then(game => setGame(game));
     }

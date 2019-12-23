@@ -64,27 +64,26 @@ display: flex;
 justify-content: space-between;
 
 .player-container {
-  -webkit-box-shadow: 10px 10px 20px -16px rgba(0,0,0,0.75);
--moz-box-shadow: 10px 10px 20px -16px rgba(0,0,0,0.75);
-box-shadow: 10px 10px 20px -16px rgba(0,0,0,0.75);
-  height: 60px;
-  width: 60px;
-  overflow:hidden
-  border-radius: 100px;
+box-shadow: 10px 10px ${({ hasPhoto }) => hasPhoto ? '0' : '20px'} -16px rgba(0,0,0,0.75);
+  height: 80px;
+  width: 80px;
+  overflow:hidden;
+  border-radius: ${({ hasPhoto }) => hasPhoto ? 0 : '100%'};
 }
 
 .player-photo {
-    background-color: royalblue;
-    height: 60px;
-    width: 60px;
+    background-color: ${({ hasPhoto }) => hasPhoto ? 'transparent' : 'royalblue'};
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 100px;
+    
     img {
-      height: 100%;
-      width: auto;
+      width: 100%;
+      height: auto;
     }
+}
 `;
 
 const CardDisplay = ({ game, player, getPlayer }) => {
@@ -106,7 +105,7 @@ const CardDisplay = ({ game, player, getPlayer }) => {
           getPlayer();
         }}
       >
-        <TopRow>
+        <TopRow hasPhoto={!!player.photo}>
           <div>
             <PlayerName>{player.name.toUpperCase()}</PlayerName>
             <GameName>{game.name.toUpperCase()}</GameName>

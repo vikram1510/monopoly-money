@@ -11,31 +11,27 @@ const PlayerCardStyle = styled.div`
   }
 
   
-.player-container {
+  .player-container {
+  box-shadow: 10px 10px ${({ hasPhoto }) => hasPhoto ? '0' : '20px'} -16px rgba(0,0,0,0.75);
   height: 60px;
-  -webkit-box-shadow: 10px 10px 20px -16px rgba(0,0,0,0.75);
--moz-box-shadow: 10px 10px 20px -16px rgba(0,0,0,0.75);
-box-shadow: 10px 10px 20px -16px rgba(0,0,0,0.75);
   width: 60px;
-  overflow:hidden
-  border-radius: 100px;
+  overflow:hidden;
+  border-radius: ${({ hasPhoto }) => hasPhoto ? 0 : '100%'};
 }
 
 .player-photo {
-  
-    background-color:  ${({ cardColor }) =>
-      cardColor ? cardColor : "royalblue"};
-    height: 60px;
-    width: 60px;
+    background-color: ${({ hasPhoto }) => hasPhoto ? 'transparent' : 'royalblue'};
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 100px;
+    
     img {
-      height: 100%;
-      width: auto;
+      width: 100%;
+      height: auto;
     }
-  
+}
 `;
 
 const PlayerCard = ({
@@ -47,9 +43,7 @@ const PlayerCard = ({
   return (
     <PlayerCardStyle
       onClick={onClick}
-      cardColor={
-        player.is_bank ? "gold" : player.photo ? "transparent" : "royalblue"
-      }
+      hasPhoto={!!player.photo}
     >
       <div className="player-container">
         <div className="player-photo">
