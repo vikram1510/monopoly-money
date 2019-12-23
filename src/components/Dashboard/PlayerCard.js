@@ -20,7 +20,7 @@ const PlayerCardStyle = styled.div`
 }
 
 .player-photo {
-    background-color: ${({ hasPhoto }) => hasPhoto ? 'transparent' : 'royalblue'};
+    background-color: ${({ hasPhoto, isBank }) => isBank ? 'gold' : hasPhoto ? 'transparent' : 'royalblue'};
     height: 100%;
     width: 100%;
     display: flex;
@@ -44,6 +44,7 @@ const PlayerCard = ({
     <PlayerCardStyle
       onClick={onClick}
       hasPhoto={!!player.photo}
+      isBank={player.is_bank}
     >
       <div className="player-container">
         <div className="player-photo">
