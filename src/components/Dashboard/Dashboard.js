@@ -107,7 +107,7 @@ const Dashboard = props => {
       </div>
       <div className="dashboard">
         {/* <div className="top">
-        <h1>Game: {game.name}</h1>
+        <h1>{game.name.replace(/^\w/, c => c.toUpperCase())}</h1>
         <Button onClick={() => setResetDialog(true)}>RESET</Button>
         </div>
         <div className="info">
