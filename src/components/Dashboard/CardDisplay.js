@@ -68,7 +68,7 @@ box-shadow: 10px 10px ${({ hasPhoto }) => hasPhoto ? '0' : '20px'} -16px rgba(0,
   height: 80px;
   width: 80px;
   overflow:hidden;
-  border-radius: ${({ hasPhoto }) => hasPhoto ? 0 : '100%'};
+  border-radius: 100%;
 }
 
 .player-photo {

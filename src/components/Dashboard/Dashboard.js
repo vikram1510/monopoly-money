@@ -46,7 +46,6 @@ const Dashboard = props => {
   }, []);
 
   useEffect(() => {
-    // console.log(player);
     if (player) {
       api.getGame(player.game).then(game => setGame(game));
     }

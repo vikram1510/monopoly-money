@@ -16,7 +16,7 @@ const PlayerCardStyle = styled.div`
   height: 60px;
   width: 60px;
   overflow:hidden;
-  border-radius: ${({ hasPhoto }) => hasPhoto ? 0 : '100%'};
+  border-radius: 100%;
 }
 
 .player-photo {
