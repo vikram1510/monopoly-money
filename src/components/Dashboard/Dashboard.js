@@ -1,8 +1,8 @@
+// https://i.pinimg.com/originals/b0/b2/48/b0b248f91cefb344ec92b272eadd860b.png
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import api from "../../api/api";
-
 import { Nav, NavOption } from "./Nav";
 
 import Auth from "../../lib/auth";
@@ -43,9 +43,8 @@ const Dashboard = props => {
   };
 
   useEffect(() => {
-    setInterval(getPlayer, 3000)
+    setInterval(getPlayer, 3000);
   }, []);
-
 
   useEffect(() => {
     // console.log(player);
