@@ -11,7 +11,7 @@ const Header = ({ game, player, getPlayer }) => {
     e.preventDefault();
     setResetDialog(false);
     api.updatePlayer(player.id, { amount: 1500, deposit: 0 }).then(getPlayer);
-    api.updateGame({ free_parking: 0 });
+    api.updateGame(game.id, { free_parking: 0 });
   };
 
   return (

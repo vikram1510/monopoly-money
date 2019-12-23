@@ -25,8 +25,6 @@ const Dashboard = props => {
   const [addDepDialog, setAddDepDialog] = useState(false);
   const [deposit, setDeposit] = useState(0);
 
-  const [profile, setProfile] = useState({ photo: "", color: "" });
-
   const [collDepDialog, setCollDepDialog] = useState(false);
   const [collDeposit, setCollDeposit] = useState(0);
   const [atBank, setAtBank] = useState(true);
@@ -38,19 +36,18 @@ const Dashboard = props => {
 
   const [collSalDialog, setCollSalDialog] = useState(false);
 
-  const [profileDialog, setProfileDialog] = useState(false);
-
   const getPlayer = () => {
     const playerId = Auth.getToken();
+    console.log("getPlayer");
     api.getPlayer(playerId).then(player => setPlayer(player));
   };
 
   useEffect(getPlayer, []);
 
   useEffect(() => {
+    console.log(player);
     if (player) {
       api.getGame(player.game).then(game => setGame(game));
-      setProfile({ photo: player.photo, color: player.color });
     }
   }, [player]);
 
@@ -89,28 +86,22 @@ const Dashboard = props => {
     setCollSalDialog(false);
   };
 
-  const saveProfile = e => {
-    e.preventDefault();
-    api.updatePlayer(player.id, { photo: profile.photo }).then(getPlayer);
-    setProfileDialog(false);
+  const topWrapperStyles = {
+    fontFamily: "Poppins",
+    backgroundColor: "mediumseagreen",
+    width: "100%",
+    height: "250px",
+    padding: "5px 15px 15px 15px",
+    marginBottom: "10px"
   };
-
-  const Wrapper = styled.div`
-    font-family: "Poppins";
-    background-color: mediumseagreen;
-    width: 100%;
-    height: 250px;
-    padding: 5px 15px 15px 15px;
-    margin-bottom: 10px;
-  `;
 
   if (!game) return null;
   return (
     <div className="container">
-      <Wrapper>
+      <div style={topWrapperStyles}>
         <Header game={game} player={player} getPlayer={getPlayer} />
         <CardDisplay game={game} player={player} getPlayer={getPlayer} />
-      </Wrapper>
+      </div>
       <div className="dashboard">
         {/* <div className="top">
         <h1>Game: {game.name}</h1>
@@ -119,7 +110,6 @@ const Dashboard = props => {
         <div className="info">
           <PlayerCard player={player} showAmount={false} onClick={() => setProfileDialog(true)} />
           <CountUp startOnMount={false} end={player.amount} prefix={'$'} duration={2} preserveValue={true}/>
-          <Button onClick={getPlayer}><i className="fas fa-sync-alt"></i></Button>
         </div>
         <div className="deposit-fp">
           <div>
@@ -256,22 +246,6 @@ const Dashboard = props => {
               Cancel
             </Button>
           </div>
-        </form>
-      </Dialog>
-
-      <Dialog
-        open={profileDialog}
-        closeFunction={() => setProfileDialog(false)}
-      >
-        <form onSubmit={saveProfile} className="set-profile">
-          <Input
-            className="photo"
-            placeholder="photo"
-            value={profile.photo}
-            onChange={e => setProfile({ ...profile, photo: e.target.value })}
-          ></Input>
-          {/* <Input className="color" placeholder="color" value={profile.color} onChange={(e) => setProfile({...profile, color: e.target.value})}></Input> */}
-          <Button>Submit</Button>
         </form>
       </Dialog>
     </div>

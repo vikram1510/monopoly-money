@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const DialogWrapper = styled.div`
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.486);
+  background-color: rgba(0, 0, 0, 0.686);
   width: 100%;
   height: 100%;
   z-index: 900;

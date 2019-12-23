@@ -1,5 +1,5 @@
 div.dashboard {
-  div.info{
+  div.info {
     margin: 20px 50px;
     margin-bottom: 20px;
     display: flex;
@@ -17,12 +17,11 @@ div.dashboard {
     }
 
     button {
-      background-color: #ED254E;
+      background-color: #ed254e;
       border-radius: 100%;
       font-size: 20px;
       color: rgb(255, 254, 254);
     }
-
   }
 
   .top {
@@ -42,12 +41,12 @@ div.dashboard {
     width: 100%;
     overflow-x: scroll;
     overflow-y: hidden;
-    white-space:nowrap;
+    white-space: nowrap;
     text-align: center;
     &::-webkit-scrollbar {
       display: none;
     }
-    
+
     button {
       margin-right: 16px;
       width: 90px;
@@ -55,7 +54,7 @@ div.dashboard {
       display: inline-block;
     }
 
-    button.collect-fp{
+    button.collect-fp {
       width: 120px;
     }
 
@@ -64,11 +63,11 @@ div.dashboard {
     }
 
     button:active {
-      background-color: #4CAF50;
+      background-color: #4caf50;
     }
   }
 
-  div.deposit-fp{
+  div.deposit-fp {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -80,7 +79,6 @@ div.dashboard {
       font-weight: bold;
     }
   }
-
 }
 
 .send-payment {
@@ -111,7 +109,6 @@ div.payment-players {
   margin-top: 20px;
 }
 
-
 form.add-deposit {
   text-align: center;
   button {
@@ -119,7 +116,7 @@ form.add-deposit {
   }
 }
 
-form.collect-deposit{
+form.collect-deposit {
   .submit {
     margin-top: 20px;
     display: flex;
@@ -147,10 +144,10 @@ form.collect-deposit{
   }
 }
 
-form.yes-cancel{
+form.yes-cancel {
   text-align: center;
 
-  p:first-of-type{
+  p:first-of-type {
     margin-bottom: 5px;
   }
 
@@ -175,13 +172,11 @@ form.yes-cancel{
 }
 
 form.set-profile {
-
   display: flex;
   flex-direction: column;
   align-items: center;
-  
-  input {
-    width:100%;
-  }
 
+  input {
+    width: 100%;
+  }
 }
