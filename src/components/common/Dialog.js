@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
 const DialogWrapper = styled.div`
   position: absolute;
@@ -11,6 +11,7 @@ const DialogWrapper = styled.div`
   justify-content: center;
   align-items: center;
   top: 0;
+  left: 0;
 
   .dialog-container {
     padding: 0.5rem;
@@ -28,20 +29,24 @@ const DialogWrapper = styled.div`
     justify-content: flex-end;
     color: royalblue;
     margin-bottom: 10px;
-    i:hover{
+    i:hover {
       cursor: pointer;
       color: rgb(255, 51, 0);
     }
   }
-`
+`;
 
-const Dialog = ( { open = false , children, closeFunction } ) => {
-
+const Dialog = ({ open = false, children, closeFunction }) => {
   return (
     open && (
-      <DialogWrapper id="wrapper" onClick={(e) => {
-        if (e.target.id === 'wrapper' || e.target.id === 'close' ) closeFunction(e)
-      }} className="dialog-wrapper">
+      <DialogWrapper
+        id="wrapper"
+        onClick={e => {
+          if (e.target.id === "wrapper" || e.target.id === "close")
+            closeFunction(e);
+        }}
+        className="dialog-wrapper"
+      >
         <div className="dialog-container">
           <div className="close">
             <i id="close" className="fas fa-times-circle"></i>
@@ -50,9 +55,7 @@ const Dialog = ( { open = false , children, closeFunction } ) => {
         </div>
       </DialogWrapper>
     )
-  )
+  );
+};
 
-
-}
-
-export default Dialog
+export default Dialog;

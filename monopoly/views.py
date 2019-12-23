@@ -120,9 +120,10 @@ class SplitFreeParking(APIView):
             raise NotFound({ 'player': 'Player not found'})
 
         others = game.players.exclude(pk=player_id).exclude(is_bank=True)
-        player.amount += int(game.free_parking/2)
+        player.amount += int(5 * round((game.free_parking/2)/5))
         for other in others:
-            other.amount += int(game.free_parking/(2*len(others)))
+            other.amount += int(5 * round(game.free_parking/(2*len(others))/5))
+            print('splittig', other.amount)
             other.save()
         game.free_parking = 0
         player.save()
