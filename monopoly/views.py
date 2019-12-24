@@ -4,8 +4,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError, NotAcceptable, NotFound
 from .serializers import PlayerSerializer, GameSerializer, NestedGameSerializer
 from django.http import HttpResponse, JsonResponse
-
-from .models import Player, Game
+from .models import Player, Game, Transaction
 
 class PlayerList(ListCreateAPIView):
     queryset = Player.objects.all()
@@ -135,7 +134,8 @@ class SplitFreeParking(APIView):
 class Payment(APIView):
     
     def post(self, request, pk):
-        serializer = GameSerializer(Game.objects.get(pk=pk))
+        game = Game.objects.get(pk=pk)
+        serializer = GameSerializer(game)
         amount = int(request.data.get('amount'))
 
         from_player = Player.objects.get(pk=request.data.get('from'))
@@ -145,6 +145,14 @@ class Payment(APIView):
             from_player.amount -= amount
         if not to_player.is_bank:
             to_player.amount += amount
+        
+        transaction = Transaction.objects.create(
+            from_name=from_player.name, 
+            to_name=to_player.name,
+            amount=amount,
+            action='paid',
+            game=game
+        )
 
         from_player.save()
         to_player.save()

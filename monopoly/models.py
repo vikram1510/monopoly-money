@@ -20,5 +20,12 @@ class Player(models.Model):
     def __str__(self):
         return self.name
 
+class Transaction(models.Model):
+    from_name = models.CharField(max_length=50)
+    to_name = models.CharField(max_length=50)
+    amount = models.IntegerField()
+    action = models.CharField(max_length=20)
+    game = models.ForeignKey(Game, related_name="history", on_delete=models.CASCADE)
 
-
+    
+    
