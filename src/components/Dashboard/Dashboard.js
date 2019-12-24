@@ -35,10 +35,13 @@ const Dashboard = props => {
   const [collFpDialog, setCollFpDialog] = useState(false);
 
   const [collSalDialog, setCollSalDialog] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState(new Date());
 
   const getPlayer = () => {
     const playerId = Auth.getToken();
-    console.log("getPlayer");
+    console.log("getPlayer0");
+    const currentTime = new Date();
+    setLastUpdated(currentTime);
     api.getPlayer(playerId).then(player => setPlayer(player));
   };
 
@@ -92,7 +95,7 @@ const Dashboard = props => {
     fontFamily: "Poppins",
     backgroundColor: "mediumseagreen",
     width: "100%",
-    height: "250px",
+    height: "270px",
     padding: "5px 15px 15px 15px",
     marginBottom: "10px"
   };
@@ -102,7 +105,12 @@ const Dashboard = props => {
     <div className="container">
       <div style={topWrapperStyles}>
         <Header game={game} player={player} getPlayer={getPlayer} />
-        <CardDisplay game={game} player={player} getPlayer={getPlayer} />
+        <CardDisplay
+          game={game}
+          player={player}
+          getPlayer={getPlayer}
+          lastUpdated={lastUpdated}
+        />
       </div>
       <div className="dashboard">
         {/* <div className="top">

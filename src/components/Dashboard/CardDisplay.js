@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import api from "../../api/api";
 
-import CountUp from "react-countup";
 import Dialog from "../common/Dialog";
 import Input from "../common/Input";
 import Button from "../common/Button";
+import ValueDisplay from "../common/ValueDisplay";
+import PlayerPhoto from "../common/PlayerPhoto";
+import CountableNum from "../common/CountableNum";
 
 const Card = styled.div`
   background-color: white;
@@ -45,48 +47,17 @@ const BottomRow = styled.div`
   justify-content: space-around;
 `;
 
-const TitleAmount = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Title = styled.div`
-  font-weight: 1000;
-`;
-
-const Amount = styled.div`
-  text-align: center;
-  padding: 5px;
-`;
-
 const TopRow = styled.div`
-display: flex;
-justify-content: space-between;
-
-.player-container {
-box-shadow: 10px 10px ${({ hasPhoto }) => hasPhoto ? '0' : '20px'} -16px rgba(0,0,0,0.75);
-  height: 80px;
-  width: 80px;
-  overflow:hidden;
-  border-radius: ${({ hasPhoto }) => hasPhoto ? 0 : '100%'};
-}
-
-.player-photo {
-    background-color: ${({ hasPhoto }) => hasPhoto ? 'transparent' : 'royalblue'};
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    img {
-      width: 100%;
-      height: auto;
-    }
-}
+  display: flex;
+  justify-content: space-between;
 `;
 
-const CardDisplay = ({ game, player, getPlayer }) => {
+const LastUpdate = styled.p`
+  font-size: 10px;
+  color: grey;
+`;
+
+const CardDisplay = ({ game, player, getPlayer, lastUpdated }) => {
   const [profileDialog, setProfileDialog] = useState(false);
 
   const [profile, setProfile] = useState({ photo: "", color: "" });
@@ -105,57 +76,38 @@ const CardDisplay = ({ game, player, getPlayer }) => {
           getPlayer();
         }}
       >
-        <TopRow hasPhoto={!!player.photo}>
+        <TopRow>
           <div>
             <PlayerName>{player.name.toUpperCase()}</PlayerName>
             <GameName>{game.name.toUpperCase()}</GameName>
             <PlayerAmount>
-              <CountUp
-                startOnMount={true}
-                end={player.amount}
-                prefix={"$"}
-                duration={2}
-                preserveValue={true}
-              />
+              <CountableNum value={player.amount} />
             </PlayerAmount>
-            {/* <LastUpdate>Last updated: 5s</LastUpdate> */}
+            <LastUpdate>
+              Last updated{" "}
+              {lastUpdated.toLocaleTimeString("en-GB", {
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric"
+              })}
+            </LastUpdate>
           </div>
-          <div className="player-container">
-            <div
-              onClick={() => setProfileDialog(true)}
-              className="player-photo"
-            >
-              {player.photo && (
-                <img src={player.photo} alt={player.name + " photo"}></img>
-              )}
-            </div>
+          <div onClick={() => setProfileDialog(true)}>
+            <PlayerPhoto
+              photo={player.photo}
+              name={player.name}
+              hasPhoto={!!player.photo}
+              width={"80px"}
+              height={"80px"}
+            />
           </div>
         </TopRow>
         <BottomRow>
-          <TitleAmount>
-            <Title>Free Parking</Title>
-            <Amount>
-              <CountUp
-                startOnMount={true}
-                end={game.free_parking}
-                prefix={"$"}
-                duration={2}
-                preserveValue={true}
-              />
-            </Amount>
-          </TitleAmount>
-          <TitleAmount>
-            <Title>Deposit</Title>
-            <Amount>
-              <CountUp
-                startOnMount={true}
-                end={player.deposit}
-                prefix={"$"}
-                duration={2}
-                preserveValue={true}
-              />
-            </Amount>
-          </TitleAmount>
+          <ValueDisplay
+            label={"Free Parking"}
+            value={game.free_parking}
+          ></ValueDisplay>
+          <ValueDisplay label={"Deposit"} value={player.deposit}></ValueDisplay>
         </BottomRow>
       </Card>
       <Dialog
