@@ -1,4 +1,3 @@
-// https://i.pinimg.com/originals/b0/b2/48/b0b248f91cefb344ec92b272eadd860b.png
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -50,7 +49,6 @@ const Dashboard = props => {
   }, []);
 
   useEffect(() => {
-    // console.log(player);
     if (player) {
       api.getGame(player.game).then(game => setGame(game));
     }

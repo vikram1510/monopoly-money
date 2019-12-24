@@ -18,7 +18,7 @@ const Header = ({ game, player, getPlayer }) => {
     <>
       <HeaderWrapper>
         <LogoWrapper>
-          <Logo src="monopolylogo.png" alt="Italian Trulli"></Logo>
+          <Logo src={process.env.PUBLIC_URL + '/static/monopolylogo.png'} alt="Monopoly"></Logo>
         </LogoWrapper>
         <ResetButton>
           <Button

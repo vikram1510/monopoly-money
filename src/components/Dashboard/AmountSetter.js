@@ -20,9 +20,11 @@ const AmountSetterStyle = styled.div`
     label {
       padding: 10px;
       background-color: #F9DC5C;
-      font-size: 12px;
-      color: white;
-      border: 2px solid transparent;
+      font-size: 15px;
+      font-weight: 1000;
+      color: rgba(0,0,0,0.5);
+      border: 1px solid rgba(0,0,0,0.5);
+      /* border: 2px solid transparent; */
       user-select: none;
     }
 
@@ -31,31 +33,31 @@ const AmountSetterStyle = styled.div`
     }
 
     label.amount-500{
-      background-color: #AC96B7;
+      background-color: #ffb24d;
     }
 
     label.amount-100{
-      background-color: #CA9CA9;
+      background-color: #ffc375;
     }
 
     label.amount-50{
-      background-color: #94AC96;
+      background-color: #ca9ca9;
     }
     label.amount-20{
-      background-color: #7ABACA;
+      background-color: #f7ffb2;
     }
     label.amount-10{
-      background-color: #AE977C;
+      background-color: #7ABACA;
     }
 
     label.amount-5{
-      background-color: #CAAD50;
+      background-color: #ffc3c3;
     }
 
     label.amount-reset {
       grid-column: span 3;
       background-color: #ED254E;
-      color:white;
+      
     }
   }
 `
