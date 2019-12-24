@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CountUp from "react-countup";
+import PlayerPhoto from "../common/PlayerPhoto";
 
 const PlayerCardStyle = styled.div`
   width: 60px;
@@ -9,29 +10,6 @@ const PlayerCardStyle = styled.div`
     font-weight: bold;
     margin: 10px 0px 5px;
   }
-
-  
-  .player-container {
-  box-shadow: 10px 10px ${({ hasPhoto }) => hasPhoto ? '0' : '20px'} -16px rgba(0,0,0,0.75);
-  height: 60px;
-  width: 60px;
-  overflow:hidden;
-  border-radius: 100%;
-}
-
-.player-photo {
-    background-color: ${({ hasPhoto, isBank }) => isBank ? 'gold' : hasPhoto ? 'transparent' : 'royalblue'};
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    img {
-      width: 100%;
-      height: auto;
-    }
-}
 `;
 
 const PlayerCard = ({
@@ -41,18 +19,12 @@ const PlayerCard = ({
   animateCount = true
 }) => {
   return (
-    <PlayerCardStyle
-      onClick={onClick}
-      hasPhoto={!!player.photo}
-      isBank={player.is_bank}
-    >
-      <div className="player-container">
-        <div className="player-photo">
-          {player.photo && (
-            <img src={player.photo} alt={player.name + " photo"}></img>
-          )}
-        </div>
-      </div>
+    <PlayerCardStyle onClick={onClick}>
+      <PlayerPhoto
+        photo={player.photo}
+        name={player.name}
+        hasPhoto={!!player.photo}
+      />
       <h4>{player.name.split("-")[0].replace(/^\w/, c => c.toUpperCase())}</h4>
       {showAmount && !player.is_bank && (
         <>
