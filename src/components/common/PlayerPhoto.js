@@ -7,11 +7,13 @@ const PlayerPhoto = ({
   setProfileDialog,
   hasPhoto,
   width,
-  height
+  height,
+  isBank
 }) => {
   return (
     <PhotoContainer
       hasPhoto={hasPhoto}
+      isBank={isBank}
       className="photo-container"
       width={width}
       height={height}
@@ -31,8 +33,8 @@ const PhotoContainer = styled.div`
   border-radius: ${({ hasPhoto }) => (hasPhoto ? 0 : "100%")};
 
   .player-photo {
-    background-color: ${({ hasPhoto }) =>
-      hasPhoto ? "transparent" : "royalblue"};
+    background-color: ${({ hasPhoto, isBank }) =>
+      isBank ? "gold" : hasPhoto ? "transparent" : "royalblue"};
     height: 100%;
     width: 100%;
     display: flex;

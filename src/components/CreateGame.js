@@ -12,7 +12,7 @@ const CreateGame = props => {
   const createGame = e => {
     e.preventDefault()
     let game = null
-    axios.post('/api/games', { name: name.toLowerCase(), players: [Auth.getToken()] })
+    axios.post('/api/games', { name: name.toLowerCase(), players: [Auth.getToken()], history: [] })
       .then(res => game = res.data)
       .then(res => axios.post('/api/players', { name: 'Bank-'+game.name, is_bank: true }))
       .then(res => {

@@ -24,6 +24,7 @@ const PlayerCard = ({
         photo={player.photo}
         name={player.name}
         hasPhoto={!!player.photo}
+        isBank={player.is_bank}
       />
       <h4>{player.name.split("-")[0].replace(/^\w/, c => c.toUpperCase())}</h4>
       {showAmount && !player.is_bank && (
