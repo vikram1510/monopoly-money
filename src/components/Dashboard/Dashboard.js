@@ -38,7 +38,6 @@ const Dashboard = props => {
 
   const getPlayer = () => {
     const playerId = Auth.getToken();
-    console.log("getPlayer0");
     const currentTime = new Date();
     setLastUpdated(currentTime);
     api.getPlayer(playerId).then(player => setPlayer(player));
@@ -174,7 +173,7 @@ const Dashboard = props => {
           sendPaymentFunc={sendPayment}
         />
       )}
-      {navOption === "history" && <History />}
+      {navOption === "history" && <History historyList={game.history} />}
       <Dialog open={addDepDialog} closeFunction={() => setAddDepDialog(false)}>
         <form
           onSubmit={e => depositFunction(e, deposit, "add")}

@@ -3,13 +3,18 @@ import styled from "styled-components";
 import Transaction from "./Transaction";
 
 const HistoryWrapper = styled.div`
-  padding: 20px;
+  margin: 20px;
+  width: 80%;
+  height: 200px;
+  overflow-y: scroll;
 `;
 
 const History = ({ historyList }) => {
   return (
     <HistoryWrapper>
-      historyList.forEach({item => <Transaction {...item} />}});
+      {historyList.map((item, index) => (
+        <Transaction key={index} {...item} />
+      ))}
     </HistoryWrapper>
   );
 };

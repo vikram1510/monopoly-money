@@ -29,7 +29,6 @@ const getGame = gameId => {
 };
 
 const updateGame = (gameId, payload) => {
-  console.log("updateGame,", gameId, payload);
   axios
     .patch("/api/games/" + gameId, payload)
     .catch(err =>

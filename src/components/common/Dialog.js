@@ -5,7 +5,7 @@ const DialogWrapper = styled.div`
   position: absolute;
   background-color: rgba(0, 0, 0, 0.686);
   width: 100%;
-  height: 100%;
+  height: 100%
   z-index: 900;
   display: flex;
   justify-content: center;
