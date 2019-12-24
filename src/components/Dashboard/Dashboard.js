@@ -6,7 +6,7 @@ import { Nav, NavOption } from "./Nav";
 
 import Auth from "../../lib/auth";
 import SendPayment from "./SendPayment";
-import Leaderboard from "./Leaderboard";
+import History from "../History/History";
 import PlayerCard from "./PlayerCard";
 import Button from "../common/Button";
 import Dialog from "../common/Dialog";
@@ -161,9 +161,9 @@ const Dashboard = props => {
           />
           <NavOption
             selectedNavValue={navOption}
-            navValue={"leaderboard"}
+            navValue={"history"}
             onChange={navSelect}
-            navText="Leaderboard"
+            navText="History"
           />
         </Nav>
       </div>
@@ -174,7 +174,7 @@ const Dashboard = props => {
           sendPaymentFunc={sendPayment}
         />
       )}
-      {navOption === "leaderboard" && <Leaderboard />}
+      {navOption === "history" && <History />}
       <Dialog open={addDepDialog} closeFunction={() => setAddDepDialog(false)}>
         <form
           onSubmit={e => depositFunction(e, deposit, "add")}
