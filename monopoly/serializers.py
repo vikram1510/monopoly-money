@@ -18,7 +18,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Transaction
-        fields = ['to_name', 'from_name', 'amount', 'action']
+        fields = ['id', 'to_name', 'from_name', 'amount', 'action']
 
 class NestedGameSerializer(serializers.ModelSerializer):
 
