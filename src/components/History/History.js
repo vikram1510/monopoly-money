@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Transaction from "./Transaction";
 
 const HistoryWrapper = styled.div`
-  margin: 20px;
-  width: 80%;
-  height: 200px;
+  padding: 20px;
+  width: 100%;
+  height: calc(100% - 400px);
   overflow-y: scroll;
 `;
 
 const History = ({ historyList }) => {
+  const [showTimeId, setShowTimeId] = useState(0)
   return (
     <HistoryWrapper>
-      {historyList.map((item, index) => (
-        <Transaction key={index} {...item} />
+      {historyList.sort((a,b) => b.id - a.id).map(item => (
+        <Transaction key={item.id} {...item} showTimeId={showTimeId} onClick={() => setShowTimeId(item.id)} />
       ))}
     </HistoryWrapper>
   );

@@ -8,25 +8,23 @@ class PlayerSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class GameSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Game
         fields = ['id', 'name', 'players', 'free_parking', 'history']
 
 
 class TransactionSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Transaction
-        fields = ['id', 'to_name', 'from_name', 'amount', 'action']
+        fields = '__all__'
 
 class NestedGameSerializer(serializers.ModelSerializer):
 
     history = TransactionSerializer(many=True)
     players = PlayerSerializer(many=True)
-    
+
     class Meta:
         model = Game
         fields = ['id', 'name', 'free_parking', 'players', 'history']
-
-
