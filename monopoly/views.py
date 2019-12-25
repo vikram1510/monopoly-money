@@ -45,13 +45,22 @@ class GameList(ListCreateAPIView):
             return game
 
 class GameDetail(RetrieveUpdateDestroyAPIView):
-    queryset = Game.objects.all()
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return NestedGameSerializer
         else:
             return GameSerializer
+    
+    def get_queryset(self):
+        if self.request.method == 'PATCH':
+            if self.request.data.get('history') == []:
+                transactions = Transaction.objects.filter(game=self.kwargs.get('pk'))
+                if transactions:
+                    transactions.delete()
+        return Game.objects.all()
+    
+
 
 class Deposit(APIView):
     def post(self, request, pk):
@@ -146,7 +155,7 @@ class Payment(APIView):
         if not to_player.is_bank:
             to_player.amount += amount
         
-        transaction = Transaction.objects.create(
+        Transaction.objects.create(
             from_name=from_player.name, 
             to_name=to_player.name,
             amount=amount,
