@@ -44,6 +44,7 @@ const Dashboard = props => {
   };
 
   useEffect(() => {
+    getPlayer()
     setInterval(getPlayer, 3000);
   }, []);
 
