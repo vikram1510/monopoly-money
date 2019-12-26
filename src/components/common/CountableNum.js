@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CountUp from "react-countup";
 
 const CountableNum = ({
@@ -6,11 +6,22 @@ const CountableNum = ({
   prefix,
   duration,
   preserveValue,
-  startOnMount
+  startOnMount,
+  animateOnRender,
 }) => {
+  
+  let start
+
+  useEffect(() => {
+    if (!animateOnRender) {
+      start = value
+    }
+  }, [animateOnRender])
+
   return (
     <CountUp
       startOnMount={startOnMount}
+      start={start}
       end={value}
       prefix={prefix}
       duration={duration}
@@ -20,7 +31,6 @@ const CountableNum = ({
 };
 
 CountableNum.defaultProps = {
-  startOnMount: true,
   prefix: "$",
   duration: 2,
   preserveValue: true

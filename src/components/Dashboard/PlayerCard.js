@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import CountUp from "react-countup";
 import PlayerPhoto from "../common/PlayerPhoto";
+import CountableNum from "../common/CountableNum";
 
 const PlayerCardStyle = styled.div`
   width: 60px;
@@ -16,8 +17,22 @@ const PlayerCard = ({
   player,
   onClick = null,
   showAmount = true,
-  animateCount = true
+  animateOnRender = true
 }) => {
+
+
+
+  const [amountStartValue, setAmountStartValue] = useState()
+  const [depositStartValue, setDepositStartValue] = useState()
+
+  useEffect(() => {
+    if (!animateOnRender) {
+      setAmountStartValue(player.amount)
+      setDepositStartValue(player.deposit)
+    }
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [animateOnRender])
+  console.log(amountStartValue)
   return (
     <PlayerCardStyle onClick={onClick}>
       <PlayerPhoto
@@ -31,7 +46,7 @@ const PlayerCard = ({
         <>
           <div style={{ fontWeight: "800", marginBottom: "5px" }}>
             <CountUp
-              start={!animateCount && player.amount}
+              start={amountStartValue}
               end={player.amount}
               prefix={"$"}
               duration={2}
@@ -40,7 +55,7 @@ const PlayerCard = ({
           </div>
           <div style={{ fontSize: "13px", color: "gray" }}>
             <CountUp
-              start={!animateCount && player.deposit}
+            start={depositStartValue}
               end={player.deposit}
               prefix={"$"}
               duration={2}

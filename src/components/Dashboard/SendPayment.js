@@ -37,9 +37,9 @@ const SendPayment = ({ others, fromPlayer, sendPaymentFunc }) => {
       {toPlayer &&
       <Dialog open={dialog} closeFunction={closeDialog}>
         <div className="payment-players">
-          <PlayerCard player={fromPlayer} animateCount={false}/>
+          <PlayerCard player={fromPlayer} animateOnRender={false}/>
           <i className="fas fa-chevron-right"></i>
-          <PlayerCard player={toPlayer} animateCount={false}/>
+          <PlayerCard player={toPlayer} animateOnRender={false}/>
         </div>
         <form onSubmit={handleSubmit}>
           <AmountSetter amount={amount} setAmount={setAmount}></AmountSetter>
@@ -64,7 +64,8 @@ const SendPayment = ({ others, fromPlayer, sendPaymentFunc }) => {
           <PlayerCard 
             key={player.id} 
             player={player} 
-            onClick={() => setToPlayer(player)} 
+            onClick={() => setToPlayer(player)}
+            animateOnRender={false} 
           />
         ))}
       </div>
