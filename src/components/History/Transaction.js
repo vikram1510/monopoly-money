@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import moment from 'moment'
-import { act } from "react-dom/test-utils";
 
 const TransactionWrapper = styled.div`
 
@@ -54,7 +53,7 @@ const Transaction = ({ id, from_name, to_name, amount, action, created, showTime
 };
 
 const formatName = name => {
-  return name.split("-")[0].replace(/^\w/, c => c.toUpperCase());
+    return name.split("-")[0].replace(/^\w/, c => c.toUpperCase());
 };
 
 

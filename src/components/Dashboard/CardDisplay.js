@@ -14,7 +14,7 @@ const Card = styled.div`
   background-color: white;
   border-radius: 10px;
   width: 100%;
-  height: 75%;
+  height: 80%;
   padding: 20px;
 
   &:active {
@@ -61,7 +61,7 @@ const LastUpdate = styled.p`
 const LastTransaction = styled.div`
 text-align:center;
 font-weight:600;
-margin-top:3px;
+margin-top:10px;
 `;
 
 const CardDisplay = ({ game, player, getPlayer, lastUpdated }) => {
@@ -119,7 +119,7 @@ const CardDisplay = ({ game, player, getPlayer, lastUpdated }) => {
           <ValueDisplay label={"Deposit"} value={player.deposit}></ValueDisplay>
         </BottomRow>
         <LastTransaction>
-          <Transaction useAsTextCol={true} {...lastTransaction}/>
+          {lastTransaction && <Transaction useAsTextCol={true} {...lastTransaction}/>}
         </LastTransaction>
       </Card>
       <Dialog
