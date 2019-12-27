@@ -93,7 +93,7 @@ const Dashboard = props => {
     fontFamily: "Poppins",
     backgroundColor: "mediumseagreen",
     width: "100%",
-    height: "270px",
+    height: "310px",
     padding: "5px 15px 15px 15px",
     marginBottom: "10px"
   };

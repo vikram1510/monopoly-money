@@ -8,6 +8,7 @@ import Button from "../common/Button";
 import ValueDisplay from "../common/ValueDisplay";
 import PlayerPhoto from "../common/PlayerPhoto";
 import CountableNum from "../common/CountableNum";
+import Transaction from "../History/Transaction";
 
 const Card = styled.div`
   background-color: white;
@@ -57,6 +58,12 @@ const LastUpdate = styled.p`
   color: grey;
 `;
 
+const LastTransaction = styled.div`
+text-align:center;
+font-weight:600;
+margin-top:3px;
+`;
+
 const CardDisplay = ({ game, player, getPlayer, lastUpdated }) => {
   const [profileDialog, setProfileDialog] = useState(false);
 
@@ -68,6 +75,8 @@ const CardDisplay = ({ game, player, getPlayer, lastUpdated }) => {
     setProfileDialog(false);
     setProfile({ photo: player.photo, color: player.color });
   };
+
+  const lastTransaction = game.history.sort((a,b) => b.id - a.id)[0]
 
   return (
     <>
@@ -109,6 +118,9 @@ const CardDisplay = ({ game, player, getPlayer, lastUpdated }) => {
           ></ValueDisplay>
           <ValueDisplay label={"Deposit"} value={player.deposit}></ValueDisplay>
         </BottomRow>
+        <LastTransaction>
+          <Transaction useAsTextCol={true} {...lastTransaction}/>
+        </LastTransaction>
       </Card>
       <Dialog
         open={profileDialog}

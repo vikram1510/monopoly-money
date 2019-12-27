@@ -66,18 +66,41 @@ class Deposit(APIView):
     def post(self, request, pk):
         player = Player.objects.get(pk=pk)
         if request.data.get('action') == 'add':
-            player.deposit += int(request.data.get('amount'))
-            player.amount -= int(request.data.get('amount'))
+            amount = int(request.data.get('amount'))
+            player.deposit += amount
+            player.amount -= amount
+            Transaction.objects.create(
+                from_name=player.name,
+                to_name='Deposit',
+                amount=amount,
+                action='added',
+                game=player.game
+            )
             player.save()
             return Response({'message': 'successful'})
         
         elif request.data.get('action') == 'collect':
-            at_bank = request.data.get('at_bank')
+            at_go = request.data.get('at_bank')
+            deduction_factor = 0.25
             collect_amount = int(request.data.get('amount'))
             player.deposit -= collect_amount
-            player.amount += collect_amount
-            if not at_bank:
-                player.amount -= round(collect_amount*0.25)
+            if at_go:
+                amount = collect_amount
+            if not at_go:
+                amount = round(collect_amount * (1 - deduction_factor))
+            amount = int(5 * round((amount)/5))
+            player.amount += amount
+            
+            action = 'withdrew at Go' if at_go else 'withdrew'
+
+            Transaction.objects.create(
+                from_name='Deposit',
+                to_name=player.name,
+                amount=amount,
+                action=action,
+                game=player.game
+            )
+
             player.save()
             return Response({'message': 'successful'})
 
@@ -109,6 +132,14 @@ class AddFreeParking(APIView):
         game.free_parking += amount
         player.amount -= amount
 
+        Transaction.objects.create(
+            from_name=player.name, 
+            to_name='Free Parking',
+            amount=amount,
+            action='added',
+            game=game
+        )
+
         game.save()
         player.save()
         return Response({'message': 'successful'})
@@ -128,9 +159,26 @@ class SplitFreeParking(APIView):
             raise NotFound({ 'player': 'Player not found'})
 
         others = game.players.exclude(pk=player_id).exclude(is_bank=True)
-        player.amount += int(5 * round((game.free_parking/2)/5))
+        amount = int(5 * round((game.free_parking/2)/5))
+        player.amount += amount
+        Transaction.objects.create(
+            from_name='Free Parking',
+            to_name=player.name,
+            amount=amount,
+            action='collected',
+            game=game
+        )
+
         for other in others:
-            other.amount += int(5 * round(game.free_parking/(2*len(others))/5))
+            split_amount = int(5 * round(game.free_parking/(2*len(others))/5))
+            other.amount += split_amount
+            Transaction.objects.create(
+            from_name='Free Parking', 
+            to_name=other.name,
+            amount=split_amount,
+            action='collected',
+            game=game
+            )
             print('splittig', other.amount)
             other.save()
         game.free_parking = 0
@@ -155,11 +203,12 @@ class Payment(APIView):
         if not to_player.is_bank:
             to_player.amount += amount
         
+        action = 'received' if from_player.is_bank else 'paid'
         Transaction.objects.create(
             from_name=from_player.name, 
             to_name=to_player.name,
             amount=amount,
-            action='paid',
+            action=action,
             game=game
         )
 
