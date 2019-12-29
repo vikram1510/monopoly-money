@@ -197,15 +197,16 @@ const Dashboard = props => {
             setAmount={setCollDeposit}
             max={player.deposit}
           ></AmountSetter>
+<p>You will recieve {Math.round(collDeposit * (atBank ? 1:0.75)/5) *5 }</p>
           <div className="submit">
             <div className="at-go">
               <input
-                id="at-bank"
+                id="at-go"
                 type="checkbox"
                 onChange={e => setAtBank(e.target.checked)}
                 checked={atBank}
               ></input>
-              <label htmlFor="at-bank">I'm at Go</label>
+              <label htmlFor="at-go">I'm at Go</label>
             </div>
             <Button>Collect Deposit</Button>
           </div>
