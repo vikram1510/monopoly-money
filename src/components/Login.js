@@ -37,8 +37,10 @@ class Home extends React.Component {
         const error = err.response.data['name'][0]
         if (error === 'player with this name already exists.') {
           axios.get(`/api/players?name=${name}`).then(res => {
-            Auth.setToken(res.data[0].id)
-            this.props.history.push('/home')
+            const player = res.data[0]
+            Auth.setToken(player.id)
+            if (player.game) this.props.history.push('/dashboard')
+            else this.props.history.push('/home')
           }).catch(err => console.log('you really fucked up', err.response.data))
         } else this.setState({ error })
       })
