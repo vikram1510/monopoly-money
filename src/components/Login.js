@@ -4,6 +4,7 @@ import axios from 'axios'
 import Auth from '../lib/auth'
 import Button from './common/Button'
 import Input from './common/Input'
+import api from '../api/api'
 
 class Home extends React.Component {
   constructor(){
@@ -15,9 +16,12 @@ class Home extends React.Component {
   }
   
   componentDidMount(){
-    axios.get('/api/games')
-      .then(res => this.setState( { games: res.data }))
-      .catch(err => console.log(err.response.data))
+    if (Auth.isAuthenticated()) {
+      api.getPlayer(Auth.getToken()).then(player => {
+        if (player.game) this.props.history.push('/dashboard')
+        else this.props.history.push('/home')
+      })
+    }
   }
 
   handleSubmit(e){

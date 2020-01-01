@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const getPlayer = playerId => {
+
   const response = axios
     .get("/api/players/" + playerId)
     .then(res => res.data)

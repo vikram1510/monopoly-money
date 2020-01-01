@@ -32,7 +32,6 @@ const PlayerCard = ({
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [animateOnRender])
-  console.log(amountStartValue)
   return (
     <PlayerCardStyle onClick={onClick}>
       <PlayerPhoto
