@@ -20,7 +20,7 @@ const Header = ({ game, player, getPlayer, history }) => {
     e.preventDefault();
     setLeaveDialog(true);
     api.updatePlayer(player.id, { game: null}).then(getPlayer)
-    .then(() => history.push('/'))
+    .then(() => history.push('/home'))
   }
 
   return (
