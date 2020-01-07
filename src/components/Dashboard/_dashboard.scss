@@ -107,6 +107,9 @@ div.payment-players {
   display: flex;
   justify-content: space-evenly;
   margin-top: 20px;
+  > button {
+    width: 90px;
+  }
 }
 
 form.add-deposit {
@@ -191,4 +194,9 @@ form.set-profile {
   display: flex;
   align-items: center;
 
+}
+
+.properties-button {
+  margin-top: 10px;
+  text-align: center;
 }

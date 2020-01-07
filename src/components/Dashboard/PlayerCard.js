@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import CountUp from "react-countup";
 import PlayerPhoto from "../common/PlayerPhoto";
-import CountableNum from "../common/CountableNum";
 
 const PlayerCardStyle = styled.div`
   width: 60px;
@@ -19,8 +18,6 @@ const PlayerCard = ({
   showAmount = true,
   animateOnRender = true
 }) => {
-
-
 
   const [amountStartValue, setAmountStartValue] = useState()
   const [depositStartValue, setDepositStartValue] = useState()

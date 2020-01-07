@@ -7,12 +7,9 @@ import { Nav, NavOption } from "./Nav";
 import Auth from "../../lib/auth";
 import SendPayment from "./SendPayment";
 import History from "../History/History";
-import PlayerCard from "./PlayerCard";
 import Button from "../common/Button";
 import Dialog from "../common/Dialog";
 import AmountSetter from "../Dashboard/AmountSetter";
-import CountUp from "react-countup";
-import Input from "../common/Input";
 import CardDisplay from "./CardDisplay";
 import Header from "./Header";
 

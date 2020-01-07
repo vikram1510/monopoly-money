@@ -5,9 +5,19 @@ import Dialog from '../common/Dialog'
 import PlayerCard from './PlayerCard'
 import AmountSetter from './AmountSetter'
 import Button from '../common/Button'
+import PropertyList from './PropertyList'
+
+const SEND_ACTION = 'SEND';
+const RECIEVE_ACTION = 'RECIEVE';
+const PROPERTIES_ACTION = 'PROPERTIES';
+
 
 const ReceiveButton = styled(Button)`
   background-color: #43C043;
+`
+
+const PropertyListButton = styled(Button)`
+  background-color: #751ad9;
 `
 
 const SendPayment = ({ others, fromPlayer, sendPaymentFunc }) => {
@@ -16,26 +26,44 @@ const SendPayment = ({ others, fromPlayer, sendPaymentFunc }) => {
   const [toPlayer, setToPlayer] = useState(null)
   const [amount, setAmount] = useState(0)
 
+  const [showPropertyList, togglePropertyList] = useState(false)
+
   useEffect(() => {
     if (toPlayer) {
       setDialog(true)
     } else setDialog(false)
   }, [toPlayer])
 
-  const closeDialog = () => setToPlayer(null)
-
-  const handleSubmit = (e, receive) => {
+  const handleSubmit = (e, action) => {
     e.preventDefault()
-    if (receive) sendPaymentFunc(fromPlayer.id, toPlayer.id, amount)
-    else sendPaymentFunc(toPlayer.id, fromPlayer.id, amount)
+      
+    switch (action) {
+      case RECIEVE_ACTION: 
+        sendPaymentFunc(fromPlayer.id, toPlayer.id, amount)
+        break;
+      case SEND_ACTION: 
+        sendPaymentFunc(toPlayer.id, fromPlayer.id, amount)
+        break;
+      case PROPERTIES_ACTION:
+        togglePropertyList(true)
+        break;
+      default:
+        break;
+    }
+
     setAmount(0)
-    closeDialog()
+    setDialog(false)
   }
 
   return (
     <>
+      {showPropertyList && <PropertyList showPropertyList={showPropertyList}
+                                        togglePropertyList={togglePropertyList}
+                                        from={fromPlayer.id}
+                                        to={toPlayer.id}
+                                        sendPaymentFunc={sendPaymentFunc}/>}
       {toPlayer &&
-      <Dialog open={dialog} closeFunction={closeDialog}>
+      <Dialog open={dialog} closeFunction={() =>setDialog(false)}>
         <div className="payment-players">
           <PlayerCard player={fromPlayer} animateOnRender={false}/>
           <i className="fas fa-chevron-right"></i>
@@ -43,14 +71,19 @@ const SendPayment = ({ others, fromPlayer, sendPaymentFunc }) => {
         </div>
         <form onSubmit={handleSubmit}>
           <AmountSetter amount={amount} setAmount={setAmount}></AmountSetter>
-          <div className="payment-buttons" style={{ visibility: amount ? 'visible' : 'hidden' }}>
-            <Button>SEND</Button>
+          <div className="payment-buttons">
+            <Button onClick={(e => handleSubmit(e, SEND_ACTION))}>SEND</Button>
             {toPlayer.is_bank && 
-            <ReceiveButton onClick={e => handleSubmit(e, true)}>RECIEVE</ReceiveButton>
-            }
+            <>
+            <ReceiveButton onClick={e => handleSubmit(e, RECIEVE_ACTION)}>RECIEVE</ReceiveButton>
+            </> }
           </div>
+          {toPlayer.is_bank && 
+          <div className="properties-button">
+            <PropertyListButton onClick={e => handleSubmit(e, PROPERTIES_ACTION)}>PROPERTIES</PropertyListButton>
+          </div>
+          }
         </form>
-
       </Dialog>
       }
       <div className="send-payment">
