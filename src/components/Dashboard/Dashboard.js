@@ -167,6 +167,7 @@ const Dashboard = props => {
       {navOption === "payment" && (
         <SendPayment
           others={game.players.filter(pl => pl.id !== player.id)}
+          game={game}
           fromPlayer={player}
           sendPaymentFunc={sendPayment}
         />

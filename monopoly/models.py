@@ -3,6 +3,7 @@ from django.db import models
 class Game(models.Model):
     name = models.CharField(max_length=100, unique=True)
     free_parking = models.IntegerField(default=0)
+    sold_properties = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return self.name

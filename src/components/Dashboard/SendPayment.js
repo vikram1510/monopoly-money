@@ -20,7 +20,7 @@ const PropertyListButton = styled(Button)`
   background-color: #751ad9;
 `
 
-const SendPayment = ({ others, fromPlayer, sendPaymentFunc }) => {
+const SendPayment = ({game, others, fromPlayer, sendPaymentFunc }) => {
 
   const [dialog, setDialog] = useState(false)
   const [toPlayer, setToPlayer] = useState(null)
@@ -57,11 +57,15 @@ const SendPayment = ({ others, fromPlayer, sendPaymentFunc }) => {
 
   return (
     <>
-      {showPropertyList && <PropertyList showPropertyList={showPropertyList}
-                                        togglePropertyList={togglePropertyList}
-                                        from={fromPlayer.id}
-                                        to={toPlayer.id}
-                                        sendPaymentFunc={sendPaymentFunc}/>}
+      {showPropertyList && 
+      <PropertyList
+        soldProperties={game.sold_properties}
+        game={game}
+        showPropertyList={showPropertyList}
+        togglePropertyList={togglePropertyList}
+        from={fromPlayer.id}
+        to={toPlayer.id}
+        sendPaymentFunc={sendPaymentFunc}/>}
       {toPlayer &&
       <Dialog open={dialog} closeFunction={() =>setDialog(false)}>
         <div className="payment-players">

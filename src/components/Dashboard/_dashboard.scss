@@ -86,7 +86,6 @@ div.dashboard {
   display: grid;
   width: 100%;
   grid-template-columns: repeat(3, 60px);
-  // grid-auto-rows: 90px;
   justify-content: center;
   grid-column-gap: 60px;
   grid-row-gap: 25px;
@@ -96,7 +95,6 @@ div.payment-players {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  // margin-bottom: 10px;
   i {
     font-size: 28px;
     color: royalblue;
